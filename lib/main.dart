@@ -9,7 +9,7 @@ void main() => runApp(
 
 enum genero { masculino, feminino }
 
-class Pessoa {
+abstract class Pessoa {
   String sexo = "";
   double peso = 0;
   int altura = 0;
@@ -168,10 +168,13 @@ class _HomeState extends State<Home> {
   Padding buildTextResult() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 36.0),
-      child: Text(
-        _result,
-        textAlign: TextAlign.center,
-      ),
+      child: Text(_result,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.red,
+            fontSize: 25.0,
+          )),
     );
   }
 
