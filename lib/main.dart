@@ -9,6 +9,12 @@ void main() => runApp(
 
 enum genero { masculino, feminino }
 
+class Pessoa {
+  String sexo = "";
+  double peso = 0;
+  int altura = 0;
+}
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -58,8 +64,7 @@ class _HomeState extends State<Home> {
           _result += "Obesidade";
         }
       });
-    }
-    else{
+    } else {
       setState(() {
         _result = "IMC = ${imc.toStringAsPrecision(2)}\n";
         if (imc < 19.1) {
