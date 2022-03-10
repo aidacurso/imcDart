@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 
-void main() =>
-    runApp(
+void main() => runApp(
       const MaterialApp(
         home: Home(),
         debugShowCheckedModeBanner: false,
       ),
     );
 
-enum genero{masculino, feminino}
+enum genero { masculino, feminino }
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
-
 
 class _HomeState extends State<Home> {
   genero? _generica = genero.feminino;
@@ -44,22 +43,38 @@ class _HomeState extends State<Home> {
     double height = double.parse(_heightController.text) / 100.0;
     double imc = weight / (height * height);
 
-    setState(() {
-      _result = "IMC = ${imc.toStringAsPrecision(2)}\n";
-      if (imc < 18.6) {
-        _result += "abaixo do peso";
-      } else if (imc < 25.0) {
-        _result += "peso ideal";
-      } else if (imc < 30.0) {
-        _result += "Levemente acima do peso";
-      } else if (imc < 35.0) {
-        _result += "Obesidade Grau I";
-      } else if (imc < 40.0) {
-        _result += "Obesidade Grau II";
-      } else {
-        _result += "Obesidade Grau III";
-      }
-    });
+    if (_generica.toString() == "masculino") {
+      setState(() {
+        _result = "IMC = ${imc.toStringAsPrecision(2)}\n";
+        if (imc < 20.7) {
+          _result += "abaixo do peso";
+        } else if (imc < 26.4) {
+          _result += "peso ideal";
+        } else if (imc < 27.8) {
+          _result += "Pouco acima do peso";
+        } else if (imc < 31.1) {
+          _result += "Acima do peso";
+        } else {
+          _result += "Obesidade";
+        }
+      });
+    }
+    else{
+      setState(() {
+        _result = "IMC = ${imc.toStringAsPrecision(2)}\n";
+        if (imc < 19.1) {
+          _result += "abaixo do peso";
+        } else if (imc < 25.8) {
+          _result += "peso ideal";
+        } else if (imc < 27.3) {
+          _result += "Pouco acima do peso";
+        } else if (imc < 32.3) {
+          _result += "Acima do peso";
+        } else {
+          _result += "Obesidade";
+        }
+      });
+    }
   }
 
   @override
@@ -97,9 +112,9 @@ class _HomeState extends State<Home> {
               error: "Insira seu peso!",
               controller: _weightController),
           buildTextFormField(
-            label: "Altura(cm)",
-            error: "Insira uma altura!",
-            controller:_heightController),
+              label: "Altura(cm)",
+              error: "Insira uma altura!",
+              controller: _heightController),
           ListTile(
             title: const Text('Feminino'),
             leading: Radio<genero>(
@@ -156,14 +171,16 @@ class _HomeState extends State<Home> {
   }
 
   TextFormField buildTextFormField(
-      {required TextEditingController controller, required String error, required String label}) {
+      {required TextEditingController controller,
+      required String error,
+      required String label}) {
     return TextFormField(
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: label),
       controller: controller,
-      validator: (text){
-    return text!.isEmpty ? error: null;
-    },
+      validator: (text) {
+        return text!.isEmpty ? error : null;
+      },
     );
   }
 }
